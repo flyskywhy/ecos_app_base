@@ -1,20 +1,29 @@
 
+ECOS_ECC_NAME = $(basename $(ECOS_ECC_FILE))
+ECOS_INSTALL_DIR = $(ECOS_ECC_NAME)_install
+ECOS_BUILD_DIR = $(ECOS_ECC_NAME)_build
+
 # Copied from 'makefile' in the "install" tree
 
-export HOST := UNIX
-export PREFIX := /home/lizheng/proj/microblaze/Src/apps/lwip_app_base/ecos_install
-export COMMAND_PREFIX := microblazeel-unknown-linux-gnu-
-export CC := $(COMMAND_PREFIX)gcc
-export OBJCOPY := $(COMMAND_PREFIX)objcopy
-export AR := $(COMMAND_PREFIX)ar
+HOST := $(shell grep "export HOST" ${ECOS_BUILD_DIR}/makefile | xargs echo | sed "s/export HOST := //")
+PREFIX := $(shell grep "export PREFIX" ${ECOS_BUILD_DIR}/makefile | xargs echo | sed "s/export PREFIX := //")
+COMMAND_PREFIX := $(shell grep "export COMMAND_PREFIX" ${ECOS_BUILD_DIR}/makefile | xargs echo | sed "s/export COMMAND_PREFIX := //")
+CC := $(COMMAND_PREFIX)gcc
+OBJCOPY := $(COMMAND_PREFIX)objcopy
+AR := $(COMMAND_PREFIX)ar
+
+# Generic Makefile for C/C++ Program needed variables
+
+CXX := $(COMMAND_PREFIX)g++
 
 #
 # Target specific flags, etc.
 #
+include ${ECOS_INSTALL_DIR}/include/pkgconf/ecos.mak
 
-ECOS_GLOBAL_CFLAGS = -Wall -Wpointer-arith -Wstrict-prototypes -Wundef -Woverloaded-virtual -Wno-write-strings -D__LITTLE_ENDIAN__ -fmessage-length=0 -mlittle-endian -mxl-barrel-shift -mno-xl-soft-mul -g -O2 -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -I. -I/home/lizheng/proj/microblaze/Src/apps/lwip_app_base/ecos_install/include/cyg/hal/
-ECOS_GLOBAL_LDFLAGS = -fmessage-length=0 -mlittle-endian -mxl-barrel-shift -mno-xl-soft-mul -g -nostdlib -Wl,--gc-sections -Wl,-static
-ECOS_COMMAND_PREFIX = microblazeel-unknown-linux-gnu-
+#
+# Add CFLAGS manipulation - this should match <ecos>/packages/pkgconf/rules.mak
+#
 
 #
 # Modify CFLAGS to match newer compilers
@@ -40,3 +49,7 @@ ACTUAL_CFLAGS := $(subst -fvtable-gc,,$(ACTUAL_CFLAGS))
 
 ACTUAL_CXXFLAGS := $(subst -Wstrict-prototypes,,$(ACTUAL_CXXFLAGS))
 
+# Generic Makefile for C/C++ Program needed variables
+CFLAGS   := $(ACTUAL_CFLAGS) -I$(PREFIX)/include
+CXXFLAGS := $(ACTUAL_CXXFLAGS) -I$(PREFIX)/include
+LDFLAGS  := $(ACTUAL_LDFLAGS) -L$(PREFIX)/lib -Ttarget.ld

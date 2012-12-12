@@ -1,21 +1,22 @@
 #
-# Makefile for eCos tests
+# Makefile for eCos applications
 #
+
+# Platform specific setups needed variables
+# default is 1st .ecc file without redboot
+#ECOS_ECC_FILE = ecos.ecc
+ECOS_ECC_FILE = $(shell grep "template    redboot" *.ecc -L | grep ecc -m1)
 
 # Platform specific setups
 include Make.params
 
-# Simple build rules
+# Generic Makefile for C/C++ Program needed variables
+# If not specified, default is current directory name
+#PROGRAM = httpd
 
-.c.o:
-	$(CC) -c $(ACTUAL_CFLAGS) -I$(PREFIX)/include $*.c
-
-.o:
-	$(CC) $(ACTUAL_LDFLAGS) -L$(PREFIX)/lib -Ttarget.ld $*.o -o $@
-
-SRCS=httpd.c
-OBJS=${SRCS:%.c=%.o}
-DST=httpd
-
-${DST}: ${OBJS}
+# Generic Makefile for C/C++ Program from
+# github.com/flyskywhy/makefile.git
+# forked and modified from
+# github.com/librakyle/makefile.git
+include ../../tools/makefile/Makefile
 
