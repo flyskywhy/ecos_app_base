@@ -3,7 +3,7 @@ ECOS_ECC_NAME = $(basename $(ECOS_ECC_FILE))
 ECOS_INSTALL_DIR = $(ECOS_ECC_NAME)_install
 ECOS_BUILD_DIR = $(ECOS_ECC_NAME)_build
 
-# Copied from 'makefile' in the "install" tree
+# Copied from 'makefile' in the "_build" tree
 
 HOST := $(shell grep "export HOST" ${ECOS_BUILD_DIR}/makefile | xargs echo | sed "s/export HOST := //")
 PREFIX := $(shell grep "export PREFIX" ${ECOS_BUILD_DIR}/makefile | xargs echo | sed "s/export PREFIX := //")
