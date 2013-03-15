@@ -11,7 +11,7 @@
 ECOS_ECC_FILE ?= $(shell grep "template    redboot" *.ecc -L | grep ecc -m1)
 
 # Platform specific setups
-include Make.params
+include $(PROJ_ROOT)/ecos/scripts/Make.params
 
 
 # Generic Makefile for C/C++ Program needed variables
@@ -30,5 +30,5 @@ include Make.params
 # github.com/flyskywhy/makefile.git
 # forked and modified from
 # github.com/librakyle/makefile.git
-include ../../tools/makefile/Makefile
+include $(PROJ_ROOT)/tools/makefile/Makefile
 
