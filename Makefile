@@ -3,9 +3,12 @@
 #
 
 # Platform specific setups needed variables
-# default is 1st .ecc file without redboot
+# You can run bellow command (ecos/scripts/envsetup.sh) to select .ecc file
+# $ lunch
+# Or just manually set it
 #ECOS_ECC_FILE = ecos.ecc
-ECOS_ECC_FILE = $(shell grep "template    redboot" *.ecc -L | grep ecc -m1)
+# Or use the 1st .ecc file without redboot
+ECOS_ECC_FILE ?= $(shell grep "template    redboot" *.ecc -L | grep ecc -m1)
 
 # Platform specific setups
 include Make.params
