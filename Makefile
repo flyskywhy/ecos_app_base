@@ -22,9 +22,19 @@ include $(PROJ_ROOT)/ecos/scripts/Make.params
 
 # The pre-processor and compiler options.
 #MY_CFLAGS = `pkg-config --cflags opencv boost` -I$(SRCROOT)
+MY_CFLAGS = -L.
+
+# Keep `make` still means `make all` by default, e.g. when there is `${MY_LIBS_TO_GEN}:`
+my_all: all
 
 # The linker options.
 #MY_LIBS   = `pkg-config --libs opencv boost`
+MY_LIBS   = -ljpeg
+MY_LIBS_TO_GEN = libjpeg.a
+ifneq ($(MY_LIBS_TO_GEN),)
+${MY_LIBS_TO_GEN}:
+	./gen-libs.sh
+endif
 
 # Generic Makefile for C/C++ Program from
 # github.com/flyskywhy/makefile.git
