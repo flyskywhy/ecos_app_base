@@ -33,7 +33,7 @@ my_all: all
 #MY_LIBS_TO_GEN = libjpeg.a
 ifneq ($(MY_LIBS_TO_GEN),)
 ${MY_LIBS_TO_GEN}:
-	./gen-libs.sh
+	CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" ./gen-libs.sh
 endif
 
 # Generic Makefile for C/C++ Program from

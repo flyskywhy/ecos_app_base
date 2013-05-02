@@ -21,16 +21,15 @@ LIBS_HOST=`grep "export COMMAND_PREFIX" ${ECOS_ECC_FILE%.*}_build/makefile | xar
 cd ${APP_DIR}/..
 [ ! -d jpeg/.git ] && git clone git://git.ghostscript.com/thirdparty/jpeg.git
 cd jpeg
-CONFIGURE="--host=${LIBS_HOST} --enable-shared=no CPPFLAGS=-I${APP_DIR}/${ECOS_ECC_FILE%.*}_install/include"
-CONFIGURE_LDFLAGS="LDFLAGS=-L${APP_DIR}/${ECOS_ECC_FILE%.*}_install/lib -Ttarget.ld -nostdlib"
+CONFIGURE="--host=${LIBS_HOST} --enable-shared=no"
 LIBS_HOST_FILE=`find -name config.status`
 if [ 777 != 777${LIBS_HOST_FILE} ]; then
     if [ 0 = `grep ${LIBS_HOST} -c ${LIBS_HOST_FILE}` ]; then
-        ./configure ${CONFIGURE} "${CONFIGURE_LDFLAGS}"
+        ./configure ${CONFIGURE} CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
         make clean
     fi
 else
-    ./configure ${CONFIGURE} "${CONFIGURE_LDFLAGS}"
+    ./configure ${CONFIGURE} CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
     make clean
 fi
 make
