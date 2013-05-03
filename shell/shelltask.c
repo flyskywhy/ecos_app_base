@@ -46,6 +46,9 @@
 #define COM_BUF_LEN		60
 #define SHELL_HIST_SIZE		10
 
+#define DEBUG_DEVICE		"/dev/haldiag"
+//#define DEBUG_DEVICE		"/dev/ser0"
+
 CYG_HAL_TABLE_BEGIN(__shell_CMD_TAB__, shell_commands);
 CYG_HAL_TABLE_END(__shell_CMD_TAB_END__, shell_commands);
 
@@ -149,7 +152,7 @@ shelltask(cyg_addrword_t data)
 	HAL_PLATFORM_RESET();
     }
 
-    err = cyg_io_lookup("/dev/ser0", &handle);
+    err = cyg_io_lookup(DEBUG_DEVICE, &handle);
 
     if(err != ENOERR) {
 	printf("Unable to open /dev/ser0\nHalting\n");
