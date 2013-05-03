@@ -22,15 +22,22 @@ include $(PROJ_ROOT)/ecos/scripts/Make.params
 
 # The pre-processor and compiler options.
 #MY_CFLAGS = `pkg-config --cflags opencv boost` -I$(SRCROOT)
-MY_CFLAGS = -L.
+#MY_CFLAGS = -L.
+BUILD_TAG = echo `date`
+COMPILER_RELEASE = echo `$(CC) --version | head -1`
+OPT_FLAGS = -DSHELL_DEBUG
+MY_CFLAGS = -I./shell $(OPT_FLAGS) \
+		-DBUILD_TAG=\""$(shell $(BUILD_TAG))"\" \
+		-DCOMPILER_RELEASE=\""$(shell $(COMPILER_RELEASE))"\" \
+		-DBUILD_FLAGS="\"$(CFLAGS) $(OPT_FLAGS)"\"
 
 # Keep `make` still means `make all` by default, e.g. when there is `${MY_LIBS_TO_GEN}:`
 my_all: all
 
 # The linker options.
 #MY_LIBS   = `pkg-config --libs opencv boost`
-MY_LIBS   = -ljpeg
-MY_LIBS_TO_GEN = libjpeg.a
+#MY_LIBS   = -ljpeg
+#MY_LIBS_TO_GEN = libjpeg.a
 ifneq ($(MY_LIBS_TO_GEN),)
 ${MY_LIBS_TO_GEN}:
 	CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" ./gen-libs.sh
