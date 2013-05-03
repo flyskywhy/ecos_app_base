@@ -133,20 +133,20 @@ cdl_option CYGBLD_BUILD_GDB_STUBS {
     #     CYGBLD_BUILD_COMMON_GDB_STUBS == 0
     #   --> 0
     # Requires: CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
     # Requires: CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT
-    #     CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT == 1
+    #   --> 1
     # Requires: CYGDBG_HAL_DEBUG_GDB_THREAD_SUPPORT
     #     CYGDBG_HAL_DEBUG_GDB_THREAD_SUPPORT == 1
     #   --> 1
     # Requires: ! CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT
-    #     CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT == 1
-    #   --> 0
+    #     CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT == 0
+    #   --> 1
     # Requires: ! CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM
-    #     CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM == 1
-    #   --> 0
+    #     CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM == 0
+    #   --> 1
 };
 
 # Standard compiler warning flags
@@ -176,8 +176,8 @@ cdl_option CYGBLD_BUILD_COMMON_GDB_STUBS {
     # value_source default
     # Default value: 0
     # Requires: CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
 
     # The following properties are affected by this value
     # option CYGBLD_BUILD_GDB_STUBS
@@ -745,10 +745,9 @@ cdl_option CYGSEM_HAL_STATIC_MMU_TABLES {
 # output to be displayed by the debugger.
 #
 cdl_component CYGDBG_HAL_DIAG_TO_DEBUG_CHAN {
-    # This option is not active
     # ActiveIf constraint: !CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE == 1
-    #   --> 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE == 0
+    #   --> 1
     # ActiveIf constraint:  CYGPKG_HAL_ARM || CYGPKG_HAL_POWERPC_MPC8xx  || CYGPKG_HAL_V85X_V850 || CYGSEM_HAL_VIRTUAL_VECTOR_DIAG 
     #     CYGPKG_HAL_ARM (unknown) == 0
     #     CYGPKG_HAL_POWERPC_MPC8xx (unknown) == 0
@@ -761,7 +760,7 @@ cdl_component CYGDBG_HAL_DIAG_TO_DEBUG_CHAN {
     # user_value 1
     # value_source default
     # Default value:  (CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS  || CYG_HAL_STARTUP == "RAM") ? 1 : 0
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
     #     CYG_HAL_STARTUP == RAM
     #   --> 1
 
@@ -778,9 +777,6 @@ cdl_component CYGDBG_HAL_DIAG_TO_DEBUG_CHAN {
 # ASCII text.
 #
 cdl_option CYGSEM_HAL_DIAG_MANGLER {
-    # This option is not active
-    # The parent CYGDBG_HAL_DIAG_TO_DEBUG_CHAN is not active
-
     # Flavor: data
     # No user value, uncomment the following line to provide one.
     # user_value None
@@ -932,9 +928,8 @@ cdl_option CYGSEM_HAL_COMMON_INTERRUPTS_ALLOW_NESTING {
 #
 cdl_option CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT {
     # Flavor: bool
-    # No user value, uncomment the following line to provide one.
-    # user_value 1
-    # value_source default
+    user_value 0
+    # value_source user
     # Default value: 1
 
     # The following properties are affected by this value
@@ -1001,9 +996,8 @@ cdl_component CYGPKG_HAL_COMMON_CONTEXT {
 #
 cdl_option CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM {
     # Flavor: bool
-    # No user value, uncomment the following line to provide one.
-    # user_value 1
-    # value_source default
+    user_value 0
+    # value_source user
     # Default value: 1
 
     # The following properties are affected by this value
@@ -1108,23 +1102,22 @@ cdl_option CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS {
     #   --> 1
 
     # Flavor: bool
-    # No user value, uncomment the following line to provide one.
-    # user_value 0
-    # value_source default
+    user_value 1
+    # value_source user
     # Default value: 0
     # Requires: ! CYGSEM_HAL_USE_ROM_MONITOR
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
-    #   --> 0
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
+    #   --> 1
     # Requires: ! CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT
-    #     CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT == 1
-    #   --> 0
+    #     CYGDBG_HAL_COMMON_INTERRUPTS_SAVE_MINIMUM_CONTEXT == 0
+    #   --> 1
     # Requires: ! CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM
-    #     CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM == 1
-    #   --> 0
+    #     CYGDBG_HAL_COMMON_CONTEXT_SAVE_MINIMUM == 0
+    #   --> 1
     # Requires:  !CYGSEM_HAL_VIRTUAL_VECTOR_DIAG  || CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS 
     #     CYGSEM_HAL_VIRTUAL_VECTOR_DIAG == 1
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 0
-    #   --> 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 1
+    #   --> 1
 
     # The following properties are affected by this value
     # component CYGDBG_HAL_DIAG_TO_DEBUG_CHAN
@@ -1187,14 +1180,14 @@ cdl_option CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT {
 
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 0
+    # user_value 1
     # value_source default
     # Default value: CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
     # Requires: CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
 
     # The following properties are affected by this value
     # option CYGDBG_HAL_DEBUG_GDB_CTRLC_SUPPORT
@@ -1226,8 +1219,8 @@ cdl_interface CYGINT_HAL_DEBUG_GDB_CTRLC_UNSUPPORTED {
 #
 cdl_option CYGDBG_HAL_DEBUG_GDB_CTRLC_SUPPORT {
     # ActiveIf constraint:  CYGSEM_HAL_USE_ROM_MONITOR || CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS 
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
     #   --> 1
     # ActiveIf constraint:  CYGINT_HAL_DEBUG_GDB_CTRLC_UNSUPPORTED == 0 
     #     CYGINT_HAL_DEBUG_GDB_CTRLC_UNSUPPORTED == 0
@@ -1235,14 +1228,14 @@ cdl_option CYGDBG_HAL_DEBUG_GDB_CTRLC_SUPPORT {
 
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 1
+    # user_value 0
     # value_source default
     # Default value:  !CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS 
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 1
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 0
     # Requires: !CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT
-    #     CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT == 0
-    #   --> 1
+    #     CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT == 1
+    #   --> 0
 };
 
 # Include GDB multi-threading debug support
@@ -1376,17 +1369,18 @@ cdl_component CYGSEM_HAL_VIRTUAL_VECTOR_SUPPORT {
 # the application was launched.
 #
 cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE {
+    # This option is not active
     # ActiveIf constraint: CYGSEM_HAL_USE_ROM_MONITOR
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
-    #   --> 1
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
+    #   --> 0
 
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 1
+    # user_value 0
     # value_source default
     # Default value:  !CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 0
-    #   --> 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 1
+    #   --> 0
 
     # The following properties are affected by this value
     # component CYGDBG_HAL_DIAG_TO_DEBUG_CHAN
@@ -1402,9 +1396,9 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE {
 #
 cdl_option CYGPRI_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL_CONFIGURABLE {
     # Calculated value:  CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 1
     # Flavor: bool
-    # Current value: 0
+    # Current value: 1
 
     # The following properties are affected by this value
     # option CYGNUM_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL
@@ -1418,8 +1412,8 @@ cdl_option CYGPRI_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL_CONFIGURABLE {
 #
 cdl_option CYGPRI_HAL_VIRTUAL_VECTOR_CONSOLE_CHANNEL_CONFIGURABLE {
     # Calculated value:  !CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE  && !CYGDBG_HAL_DIAG_TO_DEBUG_CHAN 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE == 1
-    #     CYGDBG_HAL_DIAG_TO_DEBUG_CHAN == 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INHERIT_CONSOLE == 0
+    #     CYGDBG_HAL_DIAG_TO_DEBUG_CHAN == 1
     # Flavor: bool
     # Current value: 0
 
@@ -1444,12 +1438,12 @@ cdl_option CYGPRI_HAL_VIRTUAL_VECTOR_CONSOLE_CHANNEL_CONFIGURABLE {
 cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE {
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 0
+    # user_value 1
     # value_source default
     # Default value:  CYG_HAL_STARTUP != "RAM" || !CYGSEM_HAL_USE_ROM_MONITOR 
     #     CYG_HAL_STARTUP == RAM
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
-    #   --> 0
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
+    #   --> 1
     # Requires: CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_RESET
     #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_RESET == 1
     #   --> 1
@@ -1460,8 +1454,8 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE {
     #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DATA == 1
     #   --> 1
     # Requires: CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 0
-    #   --> 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS == 1
+    #   --> 1
 
     # The following properties are affected by this value
     # option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT
@@ -1502,9 +1496,10 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE {
 # will be used).
 #
 cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT {
+    # This option is not active
     # ActiveIf constraint: !CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #   --> 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #   --> 0
 
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
@@ -1531,8 +1526,8 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_RESET {
     # user_value 1
     # value_source default
     # Default value:  CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE  || CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 0
     #   --> 1
 
     # The following properties are affected by this value
@@ -1547,11 +1542,11 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_RESET {
 cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_VERSION {
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 0
+    # user_value 1
     # value_source default
     # Default value:  CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #   --> 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #   --> 1
 };
 
 # Claim delay_us virtual vector
@@ -1564,8 +1559,8 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DELAY_US {
     # user_value 1
     # value_source default
     # Default value:  CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE  || CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 0
     #   --> 1
 
     # The following properties are affected by this value
@@ -1584,8 +1579,8 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DATA {
     # user_value 1
     # value_source default
     # Default value:  CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE  || CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DEFAULT == 0
     #   --> 1
 
     # The following properties are affected by this value
@@ -1605,12 +1600,12 @@ cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_DATA {
 cdl_option CYGSEM_HAL_VIRTUAL_VECTOR_CLAIM_COMMS {
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 0
+    # user_value 1
     # value_source default
     # Default value:  CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE  || CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS 
-    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 0
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGSEM_HAL_VIRTUAL_VECTOR_INIT_WHOLE_TABLE == 1
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
 
     # The following properties are affected by this value
     # option CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
@@ -1676,26 +1671,26 @@ cdl_option CYGSEM_HAL_ROM_MONITOR {
 cdl_option CYGSEM_HAL_USE_ROM_MONITOR {
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 1
+    # user_value 0
     # value_source default
     # Default value:  (CYG_HAL_STARTUP == "RAM" &&
     #     				!CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS &&
     #     				!CYGINT_HAL_USE_ROM_MONITOR_UNSUPPORTED &&
     #     				!CYGSEM_HAL_MICROBLAZE_COPY_VECTORS) ? 1 : 0 
     #     CYG_HAL_STARTUP == RAM
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
     #     CYGINT_HAL_USE_ROM_MONITOR_UNSUPPORTED == 0
-    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 0
-    #   --> 1
+    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 1
+    #   --> 0
     # Requires:  CYG_HAL_STARTUP == "RAM" 
     #     CYG_HAL_STARTUP == RAM
     #   --> 1
     # Requires: ! CYGSEM_HAL_MICROBLAZE_COPY_VECTORS
-    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 0
-    #   --> 1
+    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 1
+    #   --> 0
     # Requires: ! CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 1
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 0
     # Requires: ! CYGINT_HAL_USE_ROM_MONITOR_UNSUPPORTED
     #     CYGINT_HAL_USE_ROM_MONITOR_UNSUPPORTED == 0
     #   --> 1
@@ -1750,8 +1745,8 @@ cdl_interface CYGINT_HAL_PLF_IF_IDE {
 # interface.
 #
 cdl_interface CYGINT_HAL_COMMON_SAVED_INTERRUPT_STATE_REQUIRED {
-    # Implemented by CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT, active, disabled
-    # Implemented by CYGDBG_HAL_DEBUG_GDB_CTRLC_SUPPORT, active, enabled
+    # Implemented by CYGDBG_HAL_DEBUG_GDB_BREAK_SUPPORT, active, enabled
+    # Implemented by CYGDBG_HAL_DEBUG_GDB_CTRLC_SUPPORT, active, disabled
     # This value cannot be modified here.
     # Flavor: data
     # Current_value: 1
@@ -1779,8 +1774,8 @@ cdl_option CYGPKG_HAL_GDB_FILEIO {
     # value_source default
     # Default value: 0
     # Requires: CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
 };
 
 # Build Compiler sanity checking tests
@@ -1890,16 +1885,16 @@ cdl_option CYGSEM_HAL_MICROBLAZE_RESET_USES_JUMP {
 cdl_option CYGSEM_HAL_MICROBLAZE_COPY_VECTORS {
     # Flavor: bool
     # No user value, uncomment the following line to provide one.
-    # user_value 0
+    # user_value 1
     # value_source default
     # Default value:  (CYG_HAL_STARTUP != "RAM" ||
     #                              CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS) ? 1 : 0 
     #     CYG_HAL_STARTUP == RAM
-    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 0
-    #   --> 0
+    #     CYGDBG_HAL_DEBUG_GDB_INCLUDE_STUBS == 1
+    #   --> 1
     # Requires: ! CYGSEM_HAL_USE_ROM_MONITOR
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
-    #   --> 0
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
+    #   --> 1
 
     # The following properties are affected by this value
     # option CYGHWR_HAL_MICROBLAZE_NEED_VECTORS
@@ -1931,10 +1926,10 @@ cdl_option CYGHWR_HAL_MICROBLAZE_NEED_VECTORS {
     #                           ? 1 : 0 
     #     CYGHWR_HAL_MICROBLAZE_FORCE_VECTORS (unknown) == 0
     #     CYG_HAL_STARTUP == RAM
-    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 0
-    #     CYGSEM_HAL_USE_ROM_MONITOR == 1
+    #     CYGSEM_HAL_MICROBLAZE_COPY_VECTORS == 1
+    #     CYGSEM_HAL_USE_ROM_MONITOR == 0
     # Flavor: bool
-    # Current value: 0
+    # Current value: 1
 };
 
 # Microblaze build options
@@ -2182,10 +2177,9 @@ cdl_option CYGNUM_HAL_VIRTUAL_VECTOR_COMM_CHANNELS {
 # running GDB.
 #
 cdl_option CYGNUM_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL {
-    # This option is not active
     # ActiveIf constraint: CYGPRI_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL_CONFIGURABLE
-    #     CYGPRI_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL_CONFIGURABLE == 0
-    #   --> 0
+    #     CYGPRI_HAL_VIRTUAL_VECTOR_DEBUG_CHANNEL_CONFIGURABLE == 1
+    #   --> 1
 
     # Flavor: data
     # No user value, uncomment the following line to provide one.
