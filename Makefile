@@ -29,8 +29,8 @@ my_all: all
 
 # The linker options.
 #MY_LIBS   = `pkg-config --libs opencv boost`
-MY_LIBS   = -ljpeg
-MY_LIBS_TO_GEN = libjpeg.a
+#MY_LIBS   = -ljpeg
+#MY_LIBS_TO_GEN = libjpeg.a
 ifneq ($(MY_LIBS_TO_GEN),)
 ${MY_LIBS_TO_GEN}:
 	./gen-libs.sh
