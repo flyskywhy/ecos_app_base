@@ -285,6 +285,6 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="lwip_app_base.null.1320673810" name="lwip_app_base"/>
+		<project id="ecos_app_base.null.1320673810" name="ecos_app_base"/>
 	</storageModule>
 </cproject>
